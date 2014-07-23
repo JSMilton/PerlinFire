@@ -1,0 +1,413 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1A1A8ACF19803BD90055F74F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A8ACE19803BD90055F74F /* main.m */; };
+		1A1A8AD219803BD90055F74F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A8AD119803BD90055F74F /* AppDelegate.m */; };
+		1A1A8AD419803BD90055F74F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A8AD319803BD90055F74F /* Images.xcassets */; };
+		1A1A8AD719803BD90055F74F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A8AD519803BD90055F74F /* MainMenu.xib */; };
+		1A1A8AE319803BD90055F74F /* PerlinFireTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A1A8AE219803BD90055F74F /* PerlinFireTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1A1A8ADD19803BD90055F74F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1A1A8AC119803BD90055F74F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1A1A8AC819803BD90055F74F;
+			remoteInfo = PerlinFire;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1A1A8AC919803BD90055F74F /* PerlinFire.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PerlinFire.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1A8ACD19803BD90055F74F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A1A8ACE19803BD90055F74F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1A1A8AD019803BD90055F74F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1A1A8AD119803BD90055F74F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1A1A8AD319803BD90055F74F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		1A1A8AD619803BD90055F74F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1A1A8ADC19803BD90055F74F /* PerlinFireTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PerlinFireTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A1A8AE119803BD90055F74F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1A1A8AE219803BD90055F74F /* PerlinFireTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PerlinFireTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1A1A8AC619803BD90055F74F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1A8AD919803BD90055F74F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1A1A8AC019803BD90055F74F = {
+			isa = PBXGroup;
+			children = (
+				1A1A8ACB19803BD90055F74F /* PerlinFire */,
+				1A1A8ADF19803BD90055F74F /* PerlinFireTests */,
+				1A1A8ACA19803BD90055F74F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1A1A8ACA19803BD90055F74F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A8AC919803BD90055F74F /* PerlinFire.app */,
+				1A1A8ADC19803BD90055F74F /* PerlinFireTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1A1A8ACB19803BD90055F74F /* PerlinFire */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A8AD019803BD90055F74F /* AppDelegate.h */,
+				1A1A8AD119803BD90055F74F /* AppDelegate.m */,
+				1A1A8AD319803BD90055F74F /* Images.xcassets */,
+				1A1A8AD519803BD90055F74F /* MainMenu.xib */,
+				1A1A8ACC19803BD90055F74F /* Supporting Files */,
+			);
+			path = PerlinFire;
+			sourceTree = "<group>";
+		};
+		1A1A8ACC19803BD90055F74F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A8ACD19803BD90055F74F /* Info.plist */,
+				1A1A8ACE19803BD90055F74F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		1A1A8ADF19803BD90055F74F /* PerlinFireTests */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A8AE219803BD90055F74F /* PerlinFireTests.m */,
+				1A1A8AE019803BD90055F74F /* Supporting Files */,
+			);
+			path = PerlinFireTests;
+			sourceTree = "<group>";
+		};
+		1A1A8AE019803BD90055F74F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				1A1A8AE119803BD90055F74F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1A1A8AC819803BD90055F74F /* PerlinFire */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1A8AE619803BD90055F74F /* Build configuration list for PBXNativeTarget "PerlinFire" */;
+			buildPhases = (
+				1A1A8AC519803BD90055F74F /* Sources */,
+				1A1A8AC619803BD90055F74F /* Frameworks */,
+				1A1A8AC719803BD90055F74F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PerlinFire;
+			productName = PerlinFire;
+			productReference = 1A1A8AC919803BD90055F74F /* PerlinFire.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1A1A8ADB19803BD90055F74F /* PerlinFireTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1A1A8AE919803BD90055F74F /* Build configuration list for PBXNativeTarget "PerlinFireTests" */;
+			buildPhases = (
+				1A1A8AD819803BD90055F74F /* Sources */,
+				1A1A8AD919803BD90055F74F /* Frameworks */,
+				1A1A8ADA19803BD90055F74F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1A1A8ADE19803BD90055F74F /* PBXTargetDependency */,
+			);
+			name = PerlinFireTests;
+			productName = PerlinFireTests;
+			productReference = 1A1A8ADC19803BD90055F74F /* PerlinFireTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1A1A8AC119803BD90055F74F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = James;
+				TargetAttributes = {
+					1A1A8AC819803BD90055F74F = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					1A1A8ADB19803BD90055F74F = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 1A1A8AC819803BD90055F74F;
+					};
+				};
+			};
+			buildConfigurationList = 1A1A8AC419803BD90055F74F /* Build configuration list for PBXProject "PerlinFire" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1A1A8AC019803BD90055F74F;
+			productRefGroup = 1A1A8ACA19803BD90055F74F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1A1A8AC819803BD90055F74F /* PerlinFire */,
+				1A1A8ADB19803BD90055F74F /* PerlinFireTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1A1A8AC719803BD90055F74F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1A8AD419803BD90055F74F /* Images.xcassets in Resources */,
+				1A1A8AD719803BD90055F74F /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1A8ADA19803BD90055F74F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1A1A8AC519803BD90055F74F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1A8AD219803BD90055F74F /* AppDelegate.m in Sources */,
+				1A1A8ACF19803BD90055F74F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1A1A8AD819803BD90055F74F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1A1A8AE319803BD90055F74F /* PerlinFireTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1A1A8ADE19803BD90055F74F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1A1A8AC819803BD90055F74F /* PerlinFire */;
+			targetProxy = 1A1A8ADD19803BD90055F74F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		1A1A8AD519803BD90055F74F /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1A1A8AD619803BD90055F74F /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1A1A8AE419803BD90055F74F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		1A1A8AE519803BD90055F74F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		1A1A8AE719803BD90055F74F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PerlinFire/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		1A1A8AE819803BD90055F74F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PerlinFire/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		1A1A8AEA19803BD90055F74F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PerlinFire.app/Contents/MacOS/PerlinFire";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PerlinFireTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		1A1A8AEB19803BD90055F74F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/PerlinFire.app/Contents/MacOS/PerlinFire";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PerlinFireTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1A1A8AC419803BD90055F74F /* Build configuration list for PBXProject "PerlinFire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1A8AE419803BD90055F74F /* Debug */,
+				1A1A8AE519803BD90055F74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1A1A8AE619803BD90055F74F /* Build configuration list for PBXNativeTarget "PerlinFire" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1A8AE719803BD90055F74F /* Debug */,
+				1A1A8AE819803BD90055F74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		1A1A8AE919803BD90055F74F /* Build configuration list for PBXNativeTarget "PerlinFireTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1A1A8AEA19803BD90055F74F /* Debug */,
+				1A1A8AEB19803BD90055F74F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1A1A8AC119803BD90055F74F /* Project object */;
+}
