@@ -32,12 +32,13 @@ void GLRenderer::initBillboardShader() {
 
 void GLRenderer::initFeedbackShader() {
     mFeedbackShader = new FeedbackShader;
-    const GLchar* FeedbackVaryings[4] =
+    const GLchar* FeedbackVaryings[5] =
     {
         "vPosition",
         "vVelocity",
         "vAge",
         "vStartPosition",
+        "vSize",
     };
     
     glTransformFeedbackVaryings(mFeedbackShader->getProgram(),countof(FeedbackVaryings),
@@ -52,12 +53,13 @@ void GLRenderer::createParticleBuffers() {
         randomX = ((rand() % 2000) / 1000.0) - 1.0;
         randomY = ((rand() % 2000) / 1000.0) - 1.0;
         
-        particles[i].position.x = randomX;
-        particles[i].position.y = randomY;
+        particles[i].position.x = randomX/3;
+        particles[i].position.y = -0.25;
         particles[i].position.z = 1;
-        particles[i].velocity = glm::vec3(1,0,0);
-        particles[i].age = (float)i / MAX_PARTICLES;
+        particles[i].velocity = glm::vec3(0,1,0);
+        particles[i].age = (rand() % (int)(BIRTH_RATE * 1000)) / 1000.0;
         particles[i].startPosition = particles[i].position;
+        particles[i].size = BILLBOARD_SIZE;
     }
     
     glGenBuffers(BUFFER_COUNT, mVBO);
@@ -74,6 +76,8 @@ void GLRenderer::createParticleBuffers() {
         glVertexAttribPointer(2, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*6));
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*7));
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*10));
     }
     
     glBindVertexArray(0);
@@ -119,7 +123,7 @@ void GLRenderer::reshape(int width, int height) {
     mViewWidth = width;
     mViewHeight = height;
     mProjectionMatrix = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 100.0f);
-    mViewMatrix = glm::lookAt(glm::vec3(0,0,10), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    mViewMatrix = glm::lookAt(glm::vec3(0,0,2), glm::vec3(0,0,0), glm::vec3(0,1,0));
     
     glm::vec4 fwidth;
     fwidth = mProjectionMatrix * mViewMatrix * glm::vec4(mViewWidth, mViewHeight, 0, 1);
