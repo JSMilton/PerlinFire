@@ -32,12 +32,13 @@ void GLRenderer::initBillboardShader() {
 
 void GLRenderer::initFeedbackShader() {
     mFeedbackShader = new FeedbackShader;
-    const GLchar* FeedbackVaryings[5] =
+    const GLchar* FeedbackVaryings[6] =
     {
         "vPosition",
         "vVelocity",
         "vAge",
         "vStartPosition",
+        "vStartVelocity",
         "vSize",
     };
     
@@ -49,16 +50,19 @@ void GLRenderer::initFeedbackShader() {
 void GLRenderer::createParticleBuffers() {    
     for (int i = 0; i < MAX_PARTICLES; i++){
         
-        float randomX, randomY;
+        float randomX, randomY, randomVelX, randomVelY;
         randomX = ((rand() % 2000) / 1000.0) - 1.0;
         randomY = ((rand() % 2000) / 1000.0) - 1.0;
+        randomVelX = ((rand() % 2000) / 1000.0) - 1.0;
+        randomVelY = ((rand() % 1000) / 1000.0);
         
-        particles[i].position.x = randomX/3;
-        particles[i].position.y = -0.25;
+        particles[i].position.x = randomX;
+        particles[i].position.y = randomY/10 - 0.25;
         particles[i].position.z = 1;
         particles[i].velocity = glm::vec3(0,1,0);
         particles[i].age = (rand() % (int)(BIRTH_RATE * 1000)) / 1000.0;
         particles[i].startPosition = particles[i].position;
+        particles[i].startVelocity = particles[i].velocity;
         particles[i].size = BILLBOARD_SIZE;
     }
     
@@ -77,7 +81,9 @@ void GLRenderer::createParticleBuffers() {
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 3, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*7));
         glEnableVertexAttribArray(4);
-        glVertexAttribPointer(4, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*10));
+        glVertexAttribPointer(4, 3, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*10));
+        glEnableVertexAttribArray(5);
+        glVertexAttribPointer(5, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*13));
     }
     
     glBindVertexArray(0);
@@ -123,7 +129,7 @@ void GLRenderer::reshape(int width, int height) {
     mViewWidth = width;
     mViewHeight = height;
     mProjectionMatrix = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 100.0f);
-    mViewMatrix = glm::lookAt(glm::vec3(0,0,2), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    mViewMatrix = glm::lookAt(glm::vec3(0,0,5), glm::vec3(0,0,0), glm::vec3(0,1,0));
     
     glm::vec4 fwidth;
     fwidth = mProjectionMatrix * mViewMatrix * glm::vec4(mViewWidth, mViewHeight, 0, 1);

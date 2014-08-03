@@ -1,6 +1,6 @@
 
 layout (location = 0) in vec3 aPosition;
-layout (location = 4) in float aSize;
+layout (location = 5) in float aSize;
 
 out float gSize;
 

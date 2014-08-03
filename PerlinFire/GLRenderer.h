@@ -15,9 +15,9 @@
 
 #define BUFFER_COUNT 2
 #define MAX_PARTICLES 100000
-#define BILLBOARD_SIZE 0.01f
+#define BILLBOARD_SIZE 0.05f
 #define AREA_OF_EFFECT 0.5f
-#define BIRTH_RATE 10.0
+#define BIRTH_RATE 5.0
 
 class BillboardShader;
 class FeedbackShader;
@@ -29,6 +29,7 @@ class GLRenderer {
         glm::vec3 velocity;
         GLfloat age;
         glm::vec3 startPosition;
+        glm::vec3 startVelocity;
         float size;
     };
     
