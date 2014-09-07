@@ -12,25 +12,27 @@
 #include "glm/gtx/rotate_vector.hpp"
 #include "glUtil.h"
 #include "Utils.h"
+extern "C"{
+    #include "perlin.h"
+}
 
 #define BUFFER_COUNT 2
-#define MAX_PARTICLES 100000
-#define BILLBOARD_SIZE 0.05f
-#define AREA_OF_EFFECT 0.5f
-#define BIRTH_RATE 5.0
+#define MAX_PARTICLES 10000
+#define BILLBOARD_SIZE 0.005f
+#define BIRTH_RATE 1.5
 
 class BillboardShader;
 class FeedbackShader;
+class TestShader;
+class ScreenQuadModel;
 
 class GLRenderer {
     struct Particle
     {
         glm::vec3 position;
-        glm::vec3 velocity;
         GLfloat age;
-        glm::vec3 startPosition;
-        glm::vec3 startVelocity;
         float size;
+        float distance;
     };
     
 public:
@@ -49,7 +51,7 @@ private:
     void initBillboardShader();
     void initFeedbackShader();
     void createParticleBuffers();
-    void drawParticles();
+    void createVelocityTexture();
     
     glm::mat4 mProjectionMatrix;
     glm::mat4 mViewMatrix;
@@ -68,11 +70,18 @@ private:
     GLuint mVAO[BUFFER_COUNT];
     GLuint mVBO[BUFFER_COUNT];
     
+    GLuint mVelocityTexture;
+    
     BillboardShader *mBillboardShader;
     FeedbackShader *mFeedbackShader;
+    TestShader *mTestShader;
+    
+    ScreenQuadModel *mScreenQuadModel;
     
     glm::vec3 mMousePosition;
     glm::vec3 mMouseAcceleration;
     
     Particle particles[MAX_PARTICLES];
+    
+    float mElapsedTime;
 };

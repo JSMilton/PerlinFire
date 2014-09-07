@@ -132,6 +132,12 @@
 		1A1A8C8619803C670055F74F /* vector_angle.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A8C0619803C670055F74F /* vector_angle.inl */; };
 		1A1A8C8719803C670055F74F /* vector_query.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A8C0819803C670055F74F /* vector_query.inl */; };
 		1A1A8C8819803C670055F74F /* wrap.inl in Resources */ = {isa = PBXBuildFile; fileRef = 1A1A8C0A19803C670055F74F /* wrap.inl */; };
+		1A27871B19B33545005C4E8B /* perlin.c in Sources */ = {isa = PBXBuildFile; fileRef = 1A27871A19B33545005C4E8B /* perlin.c */; };
+		1A27872119B38616005C4E8B /* test.fsh in Resources */ = {isa = PBXBuildFile; fileRef = 1A27872019B38616005C4E8B /* test.fsh */; };
+		1A27872319B3861E005C4E8B /* test.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1A27872219B3861E005C4E8B /* test.vsh */; };
+		1A27872519B3878E005C4E8B /* TestShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872419B3878E005C4E8B /* TestShader.cpp */; };
+		1A27872C19B389D1005C4E8B /* BaseModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872919B389D1005C4E8B /* BaseModel.cpp */; };
+		1A27872D19B389D1005C4E8B /* ScreenQuadModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -433,6 +439,16 @@
 		1A1A8C1A19803C670055F74F /* vec4.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vec4.hpp; sourceTree = "<group>"; };
 		1A1A8C1B19803C670055F74F /* vector_relational.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = vector_relational.hpp; sourceTree = "<group>"; };
 		1A1A8C1D19803C670055F74F /* xstream.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = xstream.hpp; sourceTree = "<group>"; };
+		1A27871A19B33545005C4E8B /* perlin.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = perlin.c; sourceTree = "<group>"; };
+		1A27871C19B33767005C4E8B /* perlin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = perlin.h; sourceTree = "<group>"; };
+		1A27872019B38616005C4E8B /* test.fsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.fsh; sourceTree = "<group>"; };
+		1A27872219B3861E005C4E8B /* test.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = test.vsh; sourceTree = "<group>"; };
+		1A27872419B3878E005C4E8B /* TestShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TestShader.cpp; sourceTree = "<group>"; };
+		1A27872619B3879A005C4E8B /* TestShader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestShader.h; sourceTree = "<group>"; };
+		1A27872819B389D1005C4E8B /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		1A27872919B389D1005C4E8B /* BaseModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseModel.cpp; sourceTree = "<group>"; };
+		1A27872A19B389D1005C4E8B /* ScreenQuadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenQuadModel.h; sourceTree = "<group>"; };
+		1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenQuadModel.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -474,6 +490,8 @@
 		1A1A8ACB19803BD90055F74F /* PerlinFire */ = {
 			isa = PBXGroup;
 			children = (
+				1A27872719B389C5005C4E8B /* Models */,
+				1A27871919B33537005C4E8B /* Perlin Noise */,
 				1A1A8B1C19803C660055F74F /* glm */,
 				1A1A8AF019803C190055F74F /* Views */,
 				1A1A8AEF19803C100055F74F /* Renderer */,
@@ -518,9 +536,11 @@
 			isa = PBXGroup;
 			children = (
 				1A1A8AF119803C250055F74F /* feedback.vsh */,
-				1A1A8AF219803C250055F74F /* billboard.fsh */,
-				1A1A8AF319803C250055F74F /* billboard.gsh */,
 				1A1A8AF419803C250055F74F /* billboard.vsh */,
+				1A1A8AF319803C250055F74F /* billboard.gsh */,
+				1A1A8AF219803C250055F74F /* billboard.fsh */,
+				1A27872019B38616005C4E8B /* test.fsh */,
+				1A27872219B3861E005C4E8B /* test.vsh */,
 			);
 			name = Shaders;
 			sourceTree = "<group>";
@@ -534,6 +554,8 @@
 				1A1A8AFC19803C2D0055F74F /* BillboardShader.cpp */,
 				1A1A8AFD19803C2D0055F74F /* FeedbackShader.h */,
 				1A1A8AFE19803C2D0055F74F /* FeedbackShader.cpp */,
+				1A27872619B3879A005C4E8B /* TestShader.h */,
+				1A27872419B3878E005C4E8B /* TestShader.cpp */,
 			);
 			name = "Shader Classes";
 			sourceTree = "<group>";
@@ -867,6 +889,26 @@
 			path = virtrev;
 			sourceTree = "<group>";
 		};
+		1A27871919B33537005C4E8B /* Perlin Noise */ = {
+			isa = PBXGroup;
+			children = (
+				1A27871C19B33767005C4E8B /* perlin.h */,
+				1A27871A19B33545005C4E8B /* perlin.c */,
+			);
+			name = "Perlin Noise";
+			sourceTree = "<group>";
+		};
+		1A27872719B389C5005C4E8B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1A27872819B389D1005C4E8B /* BaseModel.h */,
+				1A27872919B389D1005C4E8B /* BaseModel.cpp */,
+				1A27872A19B389D1005C4E8B /* ScreenQuadModel.h */,
+				1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -970,10 +1012,12 @@
 				1A1A8C3319803C670055F74F /* type_half.inl in Resources */,
 				1A1A8AF719803C250055F74F /* billboard.gsh in Resources */,
 				1A1A8AF519803C250055F74F /* feedback.vsh in Resources */,
+				1A27872119B38616005C4E8B /* test.fsh in Resources */,
 				1A1A8C8419803C670055F74F /* unsigned_int.inl in Resources */,
 				1A1A8C7219803C670055F74F /* optimum_pow.inl in Resources */,
 				1A1A8C4419803C670055F74F /* epsilon.inl in Resources */,
 				1A1A8C4619803C670055F74F /* matrix_inverse.inl in Resources */,
+				1A27872319B3861E005C4E8B /* test.vsh in Resources */,
 				1A1A8C1E19803C670055F74F /* CMakeLists.txt in Resources */,
 				1A1A8C5F19803C670055F74F /* handed_coordinate_space.inl in Resources */,
 				1A1A8C5C19803C670055F74F /* fast_square_root.inl in Resources */,
@@ -1085,9 +1129,13 @@
 				1A1A8B0E19803C3A0055F74F /* GLRenderer.cpp in Sources */,
 				1A1A8B1719803C400055F74F /* GLEssentialsFullscreenWindow.m in Sources */,
 				1A1A8C2919803C670055F74F /* glm.cpp in Sources */,
+				1A27872D19B389D1005C4E8B /* ScreenQuadModel.cpp in Sources */,
+				1A27872C19B389D1005C4E8B /* BaseModel.cpp in Sources */,
+				1A27872519B3878E005C4E8B /* TestShader.cpp in Sources */,
 				1A1A8B0019803C2D0055F74F /* BillboardShader.cpp in Sources */,
 				1A1A8B0B19803C340055F74F /* ObjModelLoader.cpp in Sources */,
 				1A1A8ACF19803BD90055F74F /* main.m in Sources */,
+				1A27871B19B33545005C4E8B /* perlin.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1273,6 +1321,7 @@
 				1A1A8AE819803BD90055F74F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1A1A8AE919803BD90055F74F /* Build configuration list for PBXNativeTarget "PerlinFireTests" */ = {
 			isa = XCConfigurationList;
@@ -1281,6 +1330,7 @@
 				1A1A8AEB19803BD90055F74F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

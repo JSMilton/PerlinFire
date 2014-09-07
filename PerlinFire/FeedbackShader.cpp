@@ -12,4 +12,7 @@ FeedbackShader::FeedbackShader() : BaseShader("feedback", NULL, NULL) {
     mDeltaTimeHandle = getUniformLocation("uDeltaTime");
     mMousePositionHandle = getUniformLocation("uMousePosition");
     mBirthRateHandle = getUniformLocation("uBirthRate");
+    mVelocityTextureHandle = getUniformLocation("uVelocityTexture");
+    mElapsedTimeHandle = getUniformLocation("uElapsedTime");
+    mSizeHandle = getUniformLocation("uSize");
 }
