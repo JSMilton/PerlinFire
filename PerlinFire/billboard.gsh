@@ -3,9 +3,9 @@ layout(points)           in;
 layout(triangle_strip)   out;
 layout(max_vertices = 4) out;
 
-in float gDistance[];
+in float gAge[];
 in float gSize[];
-out float fDistance;
+out float fAge;
 
 uniform mat4  u_MVP;
 uniform vec3  u_Right;
@@ -42,6 +42,6 @@ void simpleBillboard()
 
 void main()
 {
+    fAge = gAge[0];
     simpleBillboard();
-    fDistance = gDistance[0];
 }

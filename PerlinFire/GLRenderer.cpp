@@ -22,14 +22,13 @@ void GLRenderer::initOpenGL() {
     mScreenQuadModel->buildVAO();
     createParticleBuffers();
     mVelocityTexture = CreateNoise3D();
-    //createVelocityTexture();
     
     initBillboardShader();
     initFeedbackShader();
     mTestShader = new TestShader;
     
     glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+    glBlendFunc(GL_ONE, GL_ONE);
     glEnable(GL_DEPTH_TEST);
     
     render(0.0);
@@ -46,7 +45,7 @@ void GLRenderer::initFeedbackShader() {
         "vPosition",
         "vAge",
         "vSize",
-        "vDistance",
+        "vWeight",
     };
     
     glTransformFeedbackVaryings(mFeedbackShader->getProgram(),countof(FeedbackVaryings),
@@ -68,7 +67,7 @@ void GLRenderer::createParticleBuffers() {
         particles[i].position.z = 0;
         particles[i].age = (rand() % (int)(BIRTH_RATE * 1000)) / 1000.0;
         particles[i].size = BILLBOARD_SIZE;
-        particles[i].distance = 0.0;
+        particles[i].weight = (rand() % 750)/1000.0;
     }
     
     glGenBuffers(BUFFER_COUNT, mVBO);
@@ -92,30 +91,6 @@ void GLRenderer::createParticleBuffers() {
     }
     
     glBindVertexArray(0);
-}
-
-void GLRenderer::createVelocityTexture() {
-    static const int elements = mViewWidth * mViewHeight;
-    GLfloat data[elements*2];
-    int index = 0;
-    for (int row = 0; row < mViewWidth; row++){
-        for (int col = 0; col < mViewHeight; col++){
-            float f = (float)col / mViewHeight;;
-            data[index++] = f;
-            data[index++] = f;
-        }
-    }
-    
-    GLuint handle;
-    glGenTextures(1, &handle);
-    glBindTexture(GL_TEXTURE_2D, handle);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RG16F, mViewWidth, mViewHeight, 0, GL_RG, GL_FLOAT, &data[0]);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
-    mVelocityTexture = handle;
 }
 
 void GLRenderer::render(float dt) {
@@ -173,7 +148,7 @@ void GLRenderer::reshape(int width, int height) {
     mViewWidth = width;
     mViewHeight = height;
     mProjectionMatrix = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 100.0f);
-    mViewMatrix = glm::lookAt(glm::vec3(0,0,3), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    mViewMatrix = glm::lookAt(glm::vec3(0,0,1), glm::vec3(0,0,0), glm::vec3(0,1,0));
     
     glm::vec4 fwidth;
     fwidth = mProjectionMatrix * mViewMatrix * glm::vec4(mViewWidth, mViewHeight, 0, 1);

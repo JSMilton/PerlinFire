@@ -17,9 +17,9 @@ extern "C"{
 }
 
 #define BUFFER_COUNT 2
-#define MAX_PARTICLES 10000
-#define BILLBOARD_SIZE 0.005f
-#define BIRTH_RATE 1.5
+#define MAX_PARTICLES 1000
+#define BILLBOARD_SIZE 0.01f
+#define BIRTH_RATE 0.5
 
 class BillboardShader;
 class FeedbackShader;
@@ -32,7 +32,7 @@ class GLRenderer {
         glm::vec3 position;
         GLfloat age;
         float size;
-        float distance;
+        float weight;
     };
     
 public:

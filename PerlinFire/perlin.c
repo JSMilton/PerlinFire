@@ -283,7 +283,7 @@ double PerlinNoise3D(double x, double y, double z, double alpha, double beta, in
 void make3DNoiseTexture()
 {
   int f, i, j, k, inc;
-  int startFrequency = 8;
+  int startFrequency = 32;
   int numOctaves = 4;
   double ni[3];
   double inci, incj, inck;
