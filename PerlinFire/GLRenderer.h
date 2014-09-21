@@ -17,8 +17,8 @@ extern "C"{
 }
 
 #define BUFFER_COUNT 2
-#define MAX_PARTICLES 1000
-#define BILLBOARD_SIZE 0.005f
+#define MAX_PARTICLES 2000
+#define BILLBOARD_SIZE 0.0075f
 #define BIRTH_RATE 0.75
 
 class BillboardShader;

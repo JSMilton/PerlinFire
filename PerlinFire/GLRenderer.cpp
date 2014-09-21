@@ -29,7 +29,7 @@ void GLRenderer::initOpenGL() {
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE);
-    //glEnable(GL_DEPTH_TEST);
+    glEnable(GL_DEPTH_TEST);
     
     render(0.0);
 }
@@ -119,7 +119,7 @@ void GLRenderer::render(float dt) {
     glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[mCurrentBuffer]);
     glEnable(GL_RASTERIZER_DISCARD);
     glBeginTransformFeedback(GL_POINTS);
-    glDrawArrays(GL_POINTS, 0, MAX_PARTICLES);
+    glDrawArrays(GL_POINTS,0, MAX_PARTICLES);
     glEndTransformFeedback();
     glDisable(GL_RASTERIZER_DISCARD);
 

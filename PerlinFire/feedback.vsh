@@ -17,7 +17,7 @@ uniform float uSize;
 
 uniform float TimeStep = 5.0;
 uniform float InitialBand = 0.015;
-uniform float SeedRadius = 0.05;
+uniform float SeedRadius = 0.075;
 uniform float PlumeCeiling = 3.0;
 uniform float PlumeBase = -0.25;
 
@@ -58,13 +58,13 @@ void main()
         vWeight = aWeight;
     } else {
         vec3 texCoord = vec3((aPosition.x / 2 + 0.5), (aPosition.y / 2 + 0.5), (aPosition.z / 2 + 0.5));
-        texCoord.y = mod(texCoord.y+uElapsedTime*0.015, 1.0);
+        texCoord.y = mod(texCoord.y+uElapsedTime*0.025, 1.0);
         vec3 velocity = ((vec3(texture(uVelocityTexture, texCoord).xyz) * 2 - 1.0) * uDeltaTime);
         velocity.y *= -1.0;
         velocity.z *= -1;
-        vPosition = aPosition + (velocity*aWeight/1.5) + vec3(0,(0.5-(vAge*5)) * 0.0015,0);
+        vPosition = aPosition + (velocity*aWeight/2) + vec3(0,(0.5-(vAge*5)) * 0.0015,0);
         vAge = aAge+uDeltaTime;
         vWeight = aWeight;
-        vSize = aSize / 1.025;
+        vSize = aSize / 1.015;
     }
 }
