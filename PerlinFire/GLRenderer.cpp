@@ -29,7 +29,7 @@ void GLRenderer::initOpenGL() {
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE);
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
     
     render(0.0);
 }

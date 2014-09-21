@@ -46,24 +46,23 @@ void main()
     float y = aPosition.y;
     
     if (aAge > uBirthRate){
-        vAge = 0.0001;
+        vAge = 0;
         vSize = uSize;
         
         uint seed = uint(uDeltaTime * 1000.0) + uint(gl_VertexID);
         float theta = randhashf(seed++, TwoPi);
         float r = randhashf(seed++, SeedRadius);
-        float y = randhashf(seed++, InitialBand);
         vPosition.x = r * cos(theta);
         vPosition.y = PlumeBase;
         vPosition.z = 0;
         vWeight = aWeight;
     } else {
         vec3 texCoord = vec3((aPosition.x / 2 + 0.5), (aPosition.y / 2 + 0.5), (aPosition.z / 2 + 0.5));
-        texCoord.y = mod(texCoord.y+uElapsedTime*0.05, 1.0);
+        texCoord.y = mod(texCoord.y+uElapsedTime*0.015, 1.0);
         vec3 velocity = ((vec3(texture(uVelocityTexture, texCoord).xyz) * 2 - 1.0) * uDeltaTime);
         velocity.y *= -1.0;
         velocity.z *= -1;
-        vPosition = aPosition + (velocity*aWeight/2) + vec3(0,(0.5-(vAge*5)) * 0.0015,0);
+        vPosition = aPosition + (velocity*aWeight/1.5) + vec3(0,(0.5-(vAge*5)) * 0.0015,0);
         vAge = aAge+uDeltaTime;
         vWeight = aWeight;
         vSize = aSize / 1.025;
