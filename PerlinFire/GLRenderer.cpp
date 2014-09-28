@@ -21,6 +21,7 @@ void GLRenderer::initOpenGL() {
     mScreenQuadModel = new ScreenQuadModel;
     mScreenQuadModel->buildVAO();
     createParticleBuffers();
+    createEmitters();
     mVelocityTexture = CreateNoise3D();
     
     initBillboardShader();
@@ -40,12 +41,14 @@ void GLRenderer::initBillboardShader() {
 
 void GLRenderer::initFeedbackShader() {
     mFeedbackShader = new FeedbackShader;
-    const GLchar* FeedbackVaryings[4] =
+    const GLchar* FeedbackVaryings[6] =
     {
         "vPosition",
         "vAge",
         "vSize",
         "vWeight",
+        "vLifespan",
+        "vActive",
     };
     
     glTransformFeedbackVaryings(mFeedbackShader->getProgram(),countof(FeedbackVaryings),
@@ -55,19 +58,14 @@ void GLRenderer::initFeedbackShader() {
 
 void GLRenderer::createParticleBuffers() {    
     for (int i = 0; i < MAX_PARTICLES; i++){
-        
-        float randomX, randomY, randomVelX, randomVelY;
-        randomX = ((rand() % 1000) / 500.0) - 0.5;
-        randomY = ((rand() % 2000) / 1000.0) - 1.0;
-        randomVelX = ((rand() % 2000) / 1000.0) - 1.0;
-        randomVelY = ((rand() % 1000) / 1000.0);
-        
-        particles[i].position.x = randomX;
-        particles[i].position.y = randomY/10;
+        particles[i].position.x = 0;
+        particles[i].position.y = 0;
         particles[i].position.z = 0;
-        particles[i].age = (rand() % (int)(BIRTH_RATE * 1000)) / 1000.0;
+        particles[i].age = 0;
         particles[i].size = BILLBOARD_SIZE;
-        particles[i].weight = (rand() % 750)/1000.0;
+        particles[i].weight = (rand() % 1000)/1000.0;
+        particles[i].lifespan = 1;
+        particles[i].active = 0;
     }
     
     glGenBuffers(BUFFER_COUNT, mVBO);
@@ -76,19 +74,45 @@ void GLRenderer::createParticleBuffers() {
         glBindVertexArray(mVAO[i]);
         glBindBuffer(GL_ARRAY_BUFFER, mVBO[i]);
         glBufferData(GL_ARRAY_BUFFER, sizeof(particles), particles, GL_STATIC_DRAW);
-        // position
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Particle), 0);
-        // age
         glEnableVertexAttribArray(1);
         glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*3));
-        // size
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*4));
-        // distance
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*5));
+        glEnableVertexAttribArray(4);
+        glVertexAttribPointer(4, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*6));
+        glEnableVertexAttribArray(5);
+        glVertexAttribPointer(5, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*7));
     }
+    
+    free(particles);
+    
+    glBindVertexArray(0);
+}
+
+void GLRenderer::createEmitters() {
+    for (int i = 0; i < MAX_EMITTERS; i++){
+        emitters[i].burstRate = (rand() % MAX_BURST_RATE) / 100;
+        emitters[i].age = 0;
+        emitters[i].position = glm::vec3(0,0,0);
+    }
+    
+    glGenBuffers(1, &mEmitterVBO);
+    glGenVertexArrays(1, &mEmitterVAO);
+    glBindVertexArray(mEmitterVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, mEmitterVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(emitters), emitters, GL_STATIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Emitter), 0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*3));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*4));
+    
+    free(emitters);
     
     glBindVertexArray(0);
 }
@@ -106,12 +130,11 @@ void GLRenderer::render(float dt) {
     glm::vec4 right = mViewMatrix[0];
     glm::vec4 up = mViewMatrix[1];
     
+    // emit!!
+    
     mFeedbackShader->enable();
     glUniform1f(mFeedbackShader->mDeltaTimeHandle, dt);
-    glUniform1f(mFeedbackShader->mBirthRateHandle, BIRTH_RATE);
-    glUniform3f(mFeedbackShader->mMousePositionHandle, mMousePosition.x, mMousePosition.y, mMousePosition.z);
     glUniform1f(mFeedbackShader->mElapsedTimeHandle, mElapsedTime);
-    glUniform1f(mFeedbackShader->mSizeHandle, BILLBOARD_SIZE);
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, mVelocityTexture);

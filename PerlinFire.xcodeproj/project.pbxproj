@@ -138,6 +138,8 @@
 		1A27872519B3878E005C4E8B /* TestShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872419B3878E005C4E8B /* TestShader.cpp */; };
 		1A27872C19B389D1005C4E8B /* BaseModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872919B389D1005C4E8B /* BaseModel.cpp */; };
 		1A27872D19B389D1005C4E8B /* ScreenQuadModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */; };
+		1ADBF98819D857EC00C0ECB6 /* emitter.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1ADBF98619D857EC00C0ECB6 /* emitter.vsh */; };
+		1ADBF98C19D858A700C0ECB6 /* emitter.gsh in Resources */ = {isa = PBXBuildFile; fileRef = 1ADBF98A19D858A700C0ECB6 /* emitter.gsh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -449,6 +451,8 @@
 		1A27872919B389D1005C4E8B /* BaseModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseModel.cpp; sourceTree = "<group>"; };
 		1A27872A19B389D1005C4E8B /* ScreenQuadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenQuadModel.h; sourceTree = "<group>"; };
 		1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenQuadModel.cpp; sourceTree = "<group>"; };
+		1ADBF98619D857EC00C0ECB6 /* emitter.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = emitter.vsh; sourceTree = "<group>"; };
+		1ADBF98A19D858A700C0ECB6 /* emitter.gsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = emitter.gsh; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -536,6 +540,8 @@
 			isa = PBXGroup;
 			children = (
 				1A1A8AF119803C250055F74F /* feedback.vsh */,
+				1ADBF98619D857EC00C0ECB6 /* emitter.vsh */,
+				1ADBF98A19D858A700C0ECB6 /* emitter.gsh */,
 				1A1A8AF419803C250055F74F /* billboard.vsh */,
 				1A1A8AF319803C250055F74F /* billboard.gsh */,
 				1A1A8AF219803C250055F74F /* billboard.fsh */,
@@ -1031,12 +1037,14 @@
 				1A1A8C5A19803C670055F74F /* extented_min_max.inl in Resources */,
 				1A1A8C2119803C670055F74F /* func_exponential.inl in Resources */,
 				1A1A8C5B19803C670055F74F /* fast_exponential.inl in Resources */,
+				1ADBF98819D857EC00C0ECB6 /* emitter.vsh in Resources */,
 				1A1A8C7619803C670055F74F /* projection.inl in Resources */,
 				1A1A8C2319803C670055F74F /* func_integer.inl in Resources */,
 				1A1A8C5019803C670055F74F /* associated_min_max.inl in Resources */,
 				1A1A8AF619803C250055F74F /* billboard.fsh in Resources */,
 				1A1A8C6119803C670055F74F /* int_10_10_10_2.inl in Resources */,
 				1A1A8C2D19803C670055F74F /* intrinsic_integer.inl in Resources */,
+				1ADBF98C19D858A700C0ECB6 /* emitter.gsh in Resources */,
 				1A1A8C3919803C670055F74F /* type_mat3x3.inl in Resources */,
 				1A1A8C3119803C670055F74F /* precision.inl in Resources */,
 				1A1A8C5319803C670055F74F /* color_space.inl in Resources */,

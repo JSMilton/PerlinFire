@@ -13,9 +13,6 @@ public:
     FeedbackShader();
     
     GLint mDeltaTimeHandle;
-    GLint mMousePositionHandle;
-    GLint mBirthRateHandle;
     GLint mVelocityTextureHandle;
     GLint mElapsedTimeHandle;
-    GLint mSizeHandle;
 };

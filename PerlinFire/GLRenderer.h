@@ -19,7 +19,9 @@ extern "C"{
 #define BUFFER_COUNT 2
 #define MAX_PARTICLES 2000
 #define BILLBOARD_SIZE 0.0075f
-#define BIRTH_RATE 0.75
+#define MAX_BURST_RATE 25 //ms
+#define EMIT_COUNT 40
+#define MAX_EMITTERS 20
 
 class BillboardShader;
 class FeedbackShader;
@@ -31,9 +33,18 @@ class GLRenderer {
     {
         glm::vec3 position;
         GLfloat age;
-        float size;
-        float weight;
+        GLfloat size;
+        GLfloat weight;
+        GLfloat lifespan;
+        GLfloat active;
     };
+    
+    struct Emitter
+    {
+        glm::vec3 position;
+        GLfloat age;
+        GLfloat burstRate;
+    };;
     
 public:
     void initOpenGL();
@@ -51,6 +62,7 @@ private:
     void initBillboardShader();
     void initFeedbackShader();
     void createParticleBuffers();
+    void createEmitters();
     void createVelocityTexture();
     
     glm::mat4 mProjectionMatrix;
@@ -70,6 +82,9 @@ private:
     GLuint mVAO[BUFFER_COUNT];
     GLuint mVBO[BUFFER_COUNT];
     
+    GLuint mEmitterVAO;
+    GLuint mEmitterVBO;
+    
     GLuint mVelocityTexture;
     
     BillboardShader *mBillboardShader;
@@ -82,6 +97,9 @@ private:
     glm::vec3 mMouseAcceleration;
     
     Particle particles[MAX_PARTICLES];
+    Emitter emitters[MAX_EMITTERS];
+    
+    int mParticleCount;
     
     float mElapsedTime;
 };
