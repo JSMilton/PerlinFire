@@ -16,17 +16,18 @@ extern "C"{
     #include "perlin.h"
 }
 
-#define BUFFER_COUNT 2
-#define MAX_PARTICLES 2000
+#define BUFFER_COUNT 3
+#define MAX_PARTICLES 50000
 #define BILLBOARD_SIZE 0.0075f
 #define MAX_BURST_RATE 25 //ms
-#define EMIT_COUNT 40
-#define MAX_EMITTERS 20
+#define EMIT_COUNT 100
+#define MAX_EMITTERS 10
 
 class BillboardShader;
 class FeedbackShader;
 class TestShader;
 class ScreenQuadModel;
+class EmitterShader;
 
 class GLRenderer {
     struct Particle
@@ -42,9 +43,8 @@ class GLRenderer {
     struct Emitter
     {
         glm::vec3 position;
-        GLfloat age;
         GLfloat burstRate;
-    };;
+    };
     
 public:
     void initOpenGL();
@@ -61,6 +61,7 @@ private:
     
     void initBillboardShader();
     void initFeedbackShader();
+    void initEmitterShader();
     void createParticleBuffers();
     void createEmitters();
     void createVelocityTexture();
@@ -90,6 +91,7 @@ private:
     BillboardShader *mBillboardShader;
     FeedbackShader *mFeedbackShader;
     TestShader *mTestShader;
+    EmitterShader *mEmitterShader;
     
     ScreenQuadModel *mScreenQuadModel;
     

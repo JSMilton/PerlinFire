@@ -10,7 +10,6 @@ out float fAge;
 uniform mat4  u_MVP;
 uniform vec3  u_Right;
 uniform vec3  u_Up;
-uniform float u_BillboardSize;
 
 void simpleBillboard()
 {
@@ -36,8 +35,6 @@ void simpleBillboard()
     EmitVertex();
 
     EndPrimitive();
-    
-    pos.x = u_BillboardSize;
 }
 
 void main()

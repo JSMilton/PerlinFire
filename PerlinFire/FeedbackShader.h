@@ -11,7 +11,6 @@
 class FeedbackShader : public BaseShader {
 public:
     FeedbackShader();
-    
     GLint mDeltaTimeHandle;
     GLint mVelocityTextureHandle;
     GLint mElapsedTimeHandle;

@@ -140,6 +140,7 @@
 		1A27872D19B389D1005C4E8B /* ScreenQuadModel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */; };
 		1ADBF98819D857EC00C0ECB6 /* emitter.vsh in Resources */ = {isa = PBXBuildFile; fileRef = 1ADBF98619D857EC00C0ECB6 /* emitter.vsh */; };
 		1ADBF98C19D858A700C0ECB6 /* emitter.gsh in Resources */ = {isa = PBXBuildFile; fileRef = 1ADBF98A19D858A700C0ECB6 /* emitter.gsh */; };
+		1ADBF99019D886B100C0ECB6 /* EmitterShader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1ADBF98E19D886B100C0ECB6 /* EmitterShader.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -453,6 +454,8 @@
 		1A27872B19B389D1005C4E8B /* ScreenQuadModel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ScreenQuadModel.cpp; sourceTree = "<group>"; };
 		1ADBF98619D857EC00C0ECB6 /* emitter.vsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = emitter.vsh; sourceTree = "<group>"; };
 		1ADBF98A19D858A700C0ECB6 /* emitter.gsh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = emitter.gsh; sourceTree = "<group>"; };
+		1ADBF98E19D886B100C0ECB6 /* EmitterShader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EmitterShader.cpp; sourceTree = "<group>"; };
+		1ADBF98F19D886B100C0ECB6 /* EmitterShader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmitterShader.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -560,6 +563,8 @@
 				1A1A8AFC19803C2D0055F74F /* BillboardShader.cpp */,
 				1A1A8AFD19803C2D0055F74F /* FeedbackShader.h */,
 				1A1A8AFE19803C2D0055F74F /* FeedbackShader.cpp */,
+				1ADBF98F19D886B100C0ECB6 /* EmitterShader.h */,
+				1ADBF98E19D886B100C0ECB6 /* EmitterShader.cpp */,
 				1A27872619B3879A005C4E8B /* TestShader.h */,
 				1A27872419B3878E005C4E8B /* TestShader.cpp */,
 			);
@@ -1144,6 +1149,7 @@
 				1A1A8B0B19803C340055F74F /* ObjModelLoader.cpp in Sources */,
 				1A1A8ACF19803BD90055F74F /* main.m in Sources */,
 				1A27871B19B33545005C4E8B /* perlin.c in Sources */,
+				1ADBF99019D886B100C0ECB6 /* EmitterShader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

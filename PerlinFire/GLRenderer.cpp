@@ -11,6 +11,7 @@
 #include "FeedbackShader.h"
 #include "TestShader.h"
 #include "ScreenQuadModel.h"
+#include "EmitterShader.h"
 
 void GLRenderer::initOpenGL() {
     glClearColor(0.f, 0.f, 0.f, 1.0f);
@@ -26,6 +27,8 @@ void GLRenderer::initOpenGL() {
     
     initBillboardShader();
     initFeedbackShader();
+    initEmitterShader();
+    
     mTestShader = new TestShader;
     
     glEnable(GL_BLEND);
@@ -56,15 +59,32 @@ void GLRenderer::initFeedbackShader() {
     mFeedbackShader->linkProgram();
 }
 
+void GLRenderer::initEmitterShader() {
+    mEmitterShader = new EmitterShader;
+    const GLchar* FeedbackVaryings[6] =
+    {
+        "vPosition",
+        "vAge",
+        "vSize",
+        "vWeight",
+        "vLifespan",
+        "vActive",
+    };
+    
+    glTransformFeedbackVaryings(mEmitterShader->getProgram(),countof(FeedbackVaryings),
+                                FeedbackVaryings,GL_INTERLEAVED_ATTRIBS);
+    mEmitterShader->linkProgram();
+}
+
 void GLRenderer::createParticleBuffers() {    
     for (int i = 0; i < MAX_PARTICLES; i++){
         particles[i].position.x = 0;
         particles[i].position.y = 0;
         particles[i].position.z = 0;
         particles[i].age = 0;
-        particles[i].size = BILLBOARD_SIZE;
-        particles[i].weight = (rand() % 1000)/1000.0;
-        particles[i].lifespan = 1;
+        particles[i].size = 0;
+        particles[i].weight = 0;
+        particles[i].lifespan = 0;
         particles[i].active = 0;
     }
     
@@ -88,16 +108,13 @@ void GLRenderer::createParticleBuffers() {
         glVertexAttribPointer(5, 1, GL_FLOAT, false, sizeof(Particle), (void*)(sizeof(GLfloat)*7));
     }
     
-    free(particles);
-    
     glBindVertexArray(0);
 }
 
 void GLRenderer::createEmitters() {
     for (int i = 0; i < MAX_EMITTERS; i++){
-        emitters[i].burstRate = (rand() % MAX_BURST_RATE) / 100;
-        emitters[i].age = 0;
-        emitters[i].position = glm::vec3(0,0,0);
+        emitters[i].position = glm::vec3(0.25,0,0);
+        emitters[i].burstRate = 2;// (rand() % MAX_BURST_RATE) / 100;
     }
     
     glGenBuffers(1, &mEmitterVBO);
@@ -109,10 +126,6 @@ void GLRenderer::createEmitters() {
     glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Emitter), 0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*3));
-    glEnableVertexAttribArray(2);
-    glVertexAttribPointer(2, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*4));
-    
-    free(emitters);
     
     glBindVertexArray(0);
 }
@@ -130,29 +143,54 @@ void GLRenderer::render(float dt) {
     glm::vec4 right = mViewMatrix[0];
     glm::vec4 up = mViewMatrix[1];
     
-    // emit!!
+//    // emit!!
+    mEmitterShader->enable();
+    glUniform1f(mEmitterShader->mDeltaTimeHandle, dt);
+    glUniform1f(mEmitterShader->mElapsedTimeHandle, mElapsedTime);
+    glUniform1f(mEmitterShader->mEmitCountHandle, EMIT_COUNT);
+    glBindVertexArray(mEmitterVAO);
+    glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[mCurrentBuffer], sizeof(Particle)*mParticleCount, sizeof(Particle));
+    glEnable(GL_RASTERIZER_DISCARD);
+    glBeginTransformFeedback(GL_POINTS);
+    glDrawArrays(GL_POINTS,0, MAX_EMITTERS);
+    glEndTransformFeedback();
+    glDisable(GL_RASTERIZER_DISCARD);
     
+    //glFlush();
+    
+    //printf("%i\n", mParticleCount);
+    
+    for (int i =0; i < MAX_PARTICLES; i++){
+        GLfloat stuff[4];
+        glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, (sizeof(Particle))*i, sizeof(stuff), stuff);
+        //printf("%f and %f and %f and %f\n", stuff[0], stuff[1], stuff[2], stuff[3]);
+    }
+
+    
+
     mFeedbackShader->enable();
     glUniform1f(mFeedbackShader->mDeltaTimeHandle, dt);
+
     glUniform1f(mFeedbackShader->mElapsedTimeHandle, mElapsedTime);
+    
     
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, mVelocityTexture);
     glBindVertexArray(mVAO[(mCurrentBuffer+1)%BUFFER_COUNT]);
-    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[mCurrentBuffer]);
+    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[(mCurrentBuffer+2)%BUFFER_COUNT]);
     glEnable(GL_RASTERIZER_DISCARD);
     glBeginTransformFeedback(GL_POINTS);
     glDrawArrays(GL_POINTS,0, MAX_PARTICLES);
     glEndTransformFeedback();
     glDisable(GL_RASTERIZER_DISCARD);
-
+    
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     mBillboardShader->enable();
     glUniformMatrix4fv(mBillboardShader->mModelViewProjectionHandle, 1, GL_FALSE, glm::value_ptr(mvp));
     glUniform3f(mBillboardShader->mRightHandle, right.x, right.y, right.z);
     glUniform3f(mBillboardShader->mUpHandle, up.x, up.y, up.z);
     glUniform1f(mBillboardShader->mBillboardSizeHandle, BILLBOARD_SIZE);
-    glBindVertexArray(mVAO[mCurrentBuffer]);
+    glBindVertexArray(mVAO[(mCurrentBuffer+2)%BUFFER_COUNT]);
     glDrawArrays(GL_POINTS, 0, MAX_PARTICLES);
     
 //    mTestShader->enable();
@@ -163,7 +201,9 @@ void GLRenderer::render(float dt) {
 //    mScreenQuadModel->drawArrays();
 //    mTestShader->disable();
     
-    mCurrentBuffer = (mCurrentBuffer + 1) % BUFFER_COUNT;
+    mCurrentBuffer = (mCurrentBuffer + 2) % BUFFER_COUNT;
+    if (mCurrentBuffer == 0)mParticleCount++;
+    if (mParticleCount >= MAX_PARTICLES)mParticleCount = 0;
 }
 
 void GLRenderer::reshape(int width, int height) {
