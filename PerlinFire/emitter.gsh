@@ -18,7 +18,7 @@ uniform float uElapsedTime;
 uniform float uDeltaTime;
 
 const float lifespan = 2.0;
-const float billboardSize = 0.01;
+const float billboardSize = 0.0075;
 
 const float UINT_MAX = 4294967295.0;
 
@@ -38,17 +38,17 @@ float randhashf(uint seed, float b)
 
 void main()
 {
-    //if (mod(uElapsedTime, gBurstRate[0]) > gBurstRate[0]*0.9){
-        for (int i = 0; i < uEmitCount; i++){
-            //uint seed = uint(uDeltaTime * 1000.0) + uint(gl_VertexID);
+    //if (mod(uElapsedTime, gBurstRate[0]) > gBurstRate[0]*0.5){
+        //for (int i = 0; i < uEmitCount; i++){
+            uint seed = uint(uDeltaTime * 1000.0) + uint(gl_PrimitiveIDIn);
             vPosition = gPosition[0];
             vAge = 0;
             vSize = billboardSize;
-            vWeight = 0.5;// randhashf(seed++, 0.75);
+            vWeight = randhashf(seed++, 0.75);
             vLifespan = lifespan;
             vActive = 1;
             EmitVertex();
             EndPrimitive();
-        }
-  //  }
+        //}
+   // }
 }

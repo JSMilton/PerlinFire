@@ -113,9 +113,15 @@ void GLRenderer::createParticleBuffers() {
 
 void GLRenderer::createEmitters() {
     for (int i = 0; i < MAX_EMITTERS; i++){
-        emitters[i].position = glm::vec3(0.25,0,0);
-        emitters[i].burstRate = 2;// (rand() % MAX_BURST_RATE) / 100;
+        float x = BASE_WIDTH*((float)i/MAX_EMITTERS) - (BASE_WIDTH/2);
+        emitters[i].position = glm::vec3(x,0,0);
+        emitters[i].burstRate = 1 + i*1;// (rand() % MAX_BURST_RATE) / 100;
+        
+        //printf("%f\n", x);
     }
+    
+    //emitters[0].position = glm::vec3(-0.1,0,0);
+    //emitters[1].position = glm::vec3(0.1,0,0);
     
     glGenBuffers(1, &mEmitterVBO);
     glGenVertexArrays(1, &mEmitterVAO);
@@ -143,37 +149,21 @@ void GLRenderer::render(float dt) {
     glm::vec4 right = mViewMatrix[0];
     glm::vec4 up = mViewMatrix[1];
     
-//    // emit!!
     mEmitterShader->enable();
     glUniform1f(mEmitterShader->mDeltaTimeHandle, dt);
     glUniform1f(mEmitterShader->mElapsedTimeHandle, mElapsedTime);
     glUniform1f(mEmitterShader->mEmitCountHandle, EMIT_COUNT);
     glBindVertexArray(mEmitterVAO);
-    glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[mCurrentBuffer], sizeof(Particle)*mParticleCount, sizeof(Particle));
+    glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[mCurrentBuffer], sizeof(Particle)*mParticleCount,sizeof(Particle)*MAX_PARTICLES);
     glEnable(GL_RASTERIZER_DISCARD);
     glBeginTransformFeedback(GL_POINTS);
     glDrawArrays(GL_POINTS,0, MAX_EMITTERS);
     glEndTransformFeedback();
     glDisable(GL_RASTERIZER_DISCARD);
     
-    //glFlush();
-    
-    //printf("%i\n", mParticleCount);
-    
-    for (int i =0; i < MAX_PARTICLES; i++){
-        GLfloat stuff[4];
-        glGetBufferSubData(GL_TRANSFORM_FEEDBACK_BUFFER, (sizeof(Particle))*i, sizeof(stuff), stuff);
-        //printf("%f and %f and %f and %f\n", stuff[0], stuff[1], stuff[2], stuff[3]);
-    }
-
-    
-
     mFeedbackShader->enable();
     glUniform1f(mFeedbackShader->mDeltaTimeHandle, dt);
-
     glUniform1f(mFeedbackShader->mElapsedTimeHandle, mElapsedTime);
-    
-    
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, mVelocityTexture);
     glBindVertexArray(mVAO[(mCurrentBuffer+1)%BUFFER_COUNT]);
@@ -202,7 +192,7 @@ void GLRenderer::render(float dt) {
 //    mTestShader->disable();
     
     mCurrentBuffer = (mCurrentBuffer + 2) % BUFFER_COUNT;
-    if (mCurrentBuffer == 0)mParticleCount++;
+    mParticleCount+=MAX_EMITTERS;
     if (mParticleCount >= MAX_PARTICLES)mParticleCount = 0;
 }
 

@@ -37,8 +37,8 @@ void main()
             texCoord.y = mod(texCoord.y+uElapsedTime*0.025, 1.0);
             vec3 velocity = ((vec3(texture(uVelocityTexture, texCoord).xyz) * 2 - 1.0) * uDeltaTime);
             velocity.y *= -1.0;
-            velocity.z *= -1;
-            vPosition = aPosition + (velocity*aWeight/2) + vec3(0,(0.5-(aAge*5)) * 0.0015,0);
+            //velocity.z *= -1;
+            vPosition = aPosition + (velocity*aWeight/2);// + vec3(0,(0.5-(aAge*5)) * 0.0015,0);
             vAge = aAge+uDeltaTime;
             vWeight = aWeight;
             vSize = aSize / 1.015;
