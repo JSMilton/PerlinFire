@@ -17,11 +17,11 @@ extern "C"{
 }
 
 #define BUFFER_COUNT 3
-#define MAX_PARTICLES 1000000
+#define MAX_PARTICLES 100000
 #define BILLBOARD_SIZE 0.0075f
-#define MAX_BURST_RATE 20 //ms
-#define EMIT_COUNT 10
-#define MAX_EMITTERS 20
+#define MAX_BURST_RATE 2000//ms
+#define EMIT_COUNT 1000
+#define MAX_EMITTERS 50
 #define BASE_WIDTH 0.025
 
 class BillboardShader;
@@ -66,6 +66,8 @@ private:
     void createParticleBuffers();
     void createEmitters();
     void createVelocityTexture();
+    
+    void updateEmitters(float dt);
     
     glm::mat4 mProjectionMatrix;
     glm::mat4 mViewMatrix;

@@ -115,25 +115,35 @@ void GLRenderer::createEmitters() {
     for (int i = 0; i < MAX_EMITTERS; i++){
         float x = BASE_WIDTH*((float)i/MAX_EMITTERS) - (BASE_WIDTH/2);
         emitters[i].position = glm::vec3(x,0,0);
-        emitters[i].burstRate = 1 + i*1;// (rand() % MAX_BURST_RATE) / 100;
-        
-        //printf("%f\n", x);
+        emitters[i].burstRate = ((rand() % MAX_BURST_RATE) / 100) + 0.01;
     }
-    
-    //emitters[0].position = glm::vec3(-0.1,0,0);
-    //emitters[1].position = glm::vec3(0.1,0,0);
     
     glGenBuffers(1, &mEmitterVBO);
     glGenVertexArrays(1, &mEmitterVAO);
     glBindVertexArray(mEmitterVAO);
     glBindBuffer(GL_ARRAY_BUFFER, mEmitterVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(emitters), emitters, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(emitters), emitters, GL_DYNAMIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Emitter), 0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*3));
     
     glBindVertexArray(0);
+}
+
+void GLRenderer::updateEmitters(float dt) {
+    
+//    for (int i = 0; i < MAX_EMITTERS; i++){
+//        emitters[i].position.x += 0.001;
+//    }
+    
+    glBindVertexArray(mEmitterVAO);
+    glBindBuffer(GL_ARRAY_BUFFER, mEmitterVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(emitters), emitters, GL_DYNAMIC_DRAW);
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Emitter), 0);
+    glEnableVertexAttribArray(1);
+    glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*3));
 }
 
 void GLRenderer::render(float dt) {
@@ -149,17 +159,24 @@ void GLRenderer::render(float dt) {
     glm::vec4 right = mViewMatrix[0];
     glm::vec4 up = mViewMatrix[1];
     
+    updateEmitters(dt);
+    
+    GLuint query;
+    glGenQueries(1, &query);
+    glBeginQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN, query);
+    
     mEmitterShader->enable();
     glUniform1f(mEmitterShader->mDeltaTimeHandle, dt);
     glUniform1f(mEmitterShader->mElapsedTimeHandle, mElapsedTime);
     glUniform1f(mEmitterShader->mEmitCountHandle, EMIT_COUNT);
-    glBindVertexArray(mEmitterVAO);
     glBindBufferRange(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[mCurrentBuffer], sizeof(Particle)*mParticleCount,sizeof(Particle)*MAX_PARTICLES);
     glEnable(GL_RASTERIZER_DISCARD);
     glBeginTransformFeedback(GL_POINTS);
     glDrawArrays(GL_POINTS,0, MAX_EMITTERS);
     glEndTransformFeedback();
     glDisable(GL_RASTERIZER_DISCARD);
+    
+    glEndQuery(GL_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN);
     
     mFeedbackShader->enable();
     glUniform1f(mFeedbackShader->mDeltaTimeHandle, dt);
@@ -191,8 +208,11 @@ void GLRenderer::render(float dt) {
 //    mScreenQuadModel->drawArrays();
 //    mTestShader->disable();
     
+    GLuint primitives;
+    glGetQueryObjectuiv(query, GL_QUERY_RESULT, &primitives);
+    
     mCurrentBuffer = (mCurrentBuffer + 2) % BUFFER_COUNT;
-    mParticleCount+=MAX_EMITTERS;
+    mParticleCount+=primitives;
     if (mParticleCount >= MAX_PARTICLES)mParticleCount = 0;
 }
 
