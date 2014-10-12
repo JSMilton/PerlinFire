@@ -33,7 +33,7 @@ void GLRenderer::initOpenGL() {
     
     glEnable(GL_BLEND);
     glBlendFunc(GL_ONE, GL_ONE);
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
     
     render(0.0);
 }
@@ -113,9 +113,18 @@ void GLRenderer::createParticleBuffers() {
 
 void GLRenderer::createEmitters() {
     for (int i = 0; i < MAX_EMITTERS; i++){
-        float x = BASE_WIDTH*((float)i/MAX_EMITTERS) - (BASE_WIDTH/2);
+        float x = BASE_WIDTH*((float)i/(MAX_EMITTERS)) - (BASE_WIDTH/2);
+//        if (i <= MAX_EMITTERS/4){
+//            x = BASE_WIDTH*((float)i/(MAX_EMITTERS/4)) - (BASE_WIDTH/2);
+//            
+//        } else {
+//            x = (BASE_WIDTH/2)*((float)(i-(MAX_EMITTERS/4))/(MAX_EMITTERS/1.5)) - (BASE_WIDTH/4);
+//            printf("%f\n", x);
+//        }
         emitters[i].position = glm::vec3(x,0,0);
-        emitters[i].burstRate = ((rand() % MAX_BURST_RATE) / 100) + 0.01;
+        emitters[i].emit = 0;
+        emitters[i].burstRate = ((rand() % MAX_BURST_RATE) / 1000.0) + (MAX_BURST_RATE / 4000.0);
+        emitters[i].age = 0;
     }
     
     glGenBuffers(1, &mEmitterVBO);
@@ -133,9 +142,14 @@ void GLRenderer::createEmitters() {
 
 void GLRenderer::updateEmitters(float dt) {
     
-//    for (int i = 0; i < MAX_EMITTERS; i++){
-//        emitters[i].position.x += 0.001;
-//    }
+    for (int i = 0; i < MAX_EMITTERS; i++){
+        emitters[i].age += dt;
+        emitters[i].emit = 0;
+        if (emitters[i].age > emitters[i].burstRate){
+            emitters[i].age = 0;
+            emitters[i].emit = 1;
+        }
+    }
     
     glBindVertexArray(mEmitterVAO);
     glBindBuffer(GL_ARRAY_BUFFER, mEmitterVBO);
@@ -183,8 +197,8 @@ void GLRenderer::render(float dt) {
     glUniform1f(mFeedbackShader->mElapsedTimeHandle, mElapsedTime);
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, mVelocityTexture);
-    glBindVertexArray(mVAO[(mCurrentBuffer+1)%BUFFER_COUNT]);
-    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[(mCurrentBuffer+2)%BUFFER_COUNT]);
+    glBindVertexArray(mVAO[mCurrentBuffer]);
+    glBindBufferBase(GL_TRANSFORM_FEEDBACK_BUFFER, 0, mVBO[(mCurrentBuffer+1)%BUFFER_COUNT]);
     glEnable(GL_RASTERIZER_DISCARD);
     glBeginTransformFeedback(GL_POINTS);
     glDrawArrays(GL_POINTS,0, MAX_PARTICLES);
@@ -197,7 +211,7 @@ void GLRenderer::render(float dt) {
     glUniform3f(mBillboardShader->mRightHandle, right.x, right.y, right.z);
     glUniform3f(mBillboardShader->mUpHandle, up.x, up.y, up.z);
     glUniform1f(mBillboardShader->mBillboardSizeHandle, BILLBOARD_SIZE);
-    glBindVertexArray(mVAO[(mCurrentBuffer+2)%BUFFER_COUNT]);
+    glBindVertexArray(mVAO[(mCurrentBuffer+1)%BUFFER_COUNT]);
     glDrawArrays(GL_POINTS, 0, MAX_PARTICLES);
     
 //    mTestShader->enable();
@@ -211,7 +225,7 @@ void GLRenderer::render(float dt) {
     GLuint primitives;
     glGetQueryObjectuiv(query, GL_QUERY_RESULT, &primitives);
     
-    mCurrentBuffer = (mCurrentBuffer + 2) % BUFFER_COUNT;
+    mCurrentBuffer = (mCurrentBuffer + (BUFFER_COUNT-1)) % BUFFER_COUNT;
     mParticleCount+=primitives;
     if (mParticleCount >= MAX_PARTICLES)mParticleCount = 0;
 }
@@ -220,8 +234,8 @@ void GLRenderer::reshape(int width, int height) {
     glViewport(0, 0, width, height);
     mViewWidth = width;
     mViewHeight = height;
-    mProjectionMatrix = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 100.0f);
-    mViewMatrix = glm::lookAt(glm::vec3(0,0,1), glm::vec3(0,0,0), glm::vec3(0,1,0));
+    mProjectionMatrix = glm::perspective(45.0f, (float)width/(float)height, 0.1f, 10.0f);
+    mViewMatrix = glm::lookAt(glm::vec3(0,0,0.5), glm::vec3(0,0,0), glm::vec3(0,1,0));
     
     glm::vec4 fwidth;
     fwidth = mProjectionMatrix * mViewMatrix * glm::vec4(mViewWidth, mViewHeight, 0, 1);

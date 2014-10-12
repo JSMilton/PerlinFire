@@ -16,13 +16,13 @@ extern "C"{
     #include "perlin.h"
 }
 
-#define BUFFER_COUNT 3
-#define MAX_PARTICLES 100000
+#define BUFFER_COUNT 2
+#define MAX_PARTICLES 10000
 #define BILLBOARD_SIZE 0.0075f
-#define MAX_BURST_RATE 2000//ms
-#define EMIT_COUNT 1000
-#define MAX_EMITTERS 50
-#define BASE_WIDTH 0.025
+#define MAX_BURST_RATE 300//ms
+#define EMIT_COUNT 20
+#define MAX_EMITTERS 30
+#define BASE_WIDTH 0.05
 
 class BillboardShader;
 class FeedbackShader;
@@ -44,7 +44,9 @@ class GLRenderer {
     struct Emitter
     {
         glm::vec3 position;
+        GLfloat emit;
         GLfloat burstRate;
+        GLfloat age;
     };
     
 public:

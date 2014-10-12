@@ -33,15 +33,17 @@ void main()
         if (aAge > aLifespan){
             reset();
         } else {
-            vec3 texCoord = vec3((aPosition.x / 2 + 0.5), (aPosition.y / 2 + 0.5), (aPosition.z / 2 + 0.5));
-            texCoord.y = mod(texCoord.y+uElapsedTime*0.025, 1.0);
+            vec3 texCoord = vec3((aPosition.x), (aPosition.y), (aPosition.z));
+            texCoord.z = mod(texCoord.z+uElapsedTime*0.1, 1.0);
             vec3 velocity = ((vec3(texture(uVelocityTexture, texCoord).xyz) * 2 - 1.0) * uDeltaTime);
+            //velocity.y /= 1.1;
             velocity.y *= -1.0;
+           // velocity.x += velocity.x * aAge;
             //velocity.z *= -1;
-            vPosition = aPosition + (velocity*aWeight/2) + vec3(0,((0.5-(aAge*5)) * 0.0015) * -1,0);
+            vPosition = aPosition + (velocity*aWeight/2);// + vec3(0,((0.5-(aAge*5)) * 0.001) * -1,0);;
             vAge = aAge+uDeltaTime;
             vWeight = aWeight;
-            vSize = aSize / 1.05;
+            vSize = aSize * 0.995;
             vLifespan = aLifespan;
             vActive = aActive;
         }

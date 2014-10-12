@@ -1,11 +1,11 @@
 layout (location = 0) in vec3 aPosition;
-layout (location = 1) in float aBurstRate;
+layout (location = 1) in float aEmit;
 
 out vec3 gPosition;
-out float gBurstRate;
+out float gEmit;
 
 void main()
 {
     gPosition = aPosition;
-    gBurstRate = aBurstRate;
+    gEmit = aEmit;
 }
