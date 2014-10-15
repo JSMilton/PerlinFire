@@ -32,7 +32,7 @@ void GLRenderer::initOpenGL() {
     mTestShader = new TestShader;
     
     glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ONE);
    // glEnable(GL_DEPTH_TEST);
     
     render(0.0);

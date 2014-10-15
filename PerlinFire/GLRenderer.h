@@ -19,9 +19,9 @@ extern "C"{
 #define BUFFER_COUNT 2
 #define MAX_PARTICLES 10000
 #define BILLBOARD_SIZE 0.005f
-#define MAX_BURST_RATE 300//ms
-#define EMIT_COUNT 15
-#define MAX_EMITTERS 30
+#define MAX_BURST_RATE 1000//ms
+#define EMIT_COUNT 20
+#define MAX_EMITTERS 100
 #define BASE_WIDTH 0.05
 
 class BillboardShader;

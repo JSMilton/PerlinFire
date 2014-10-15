@@ -19,7 +19,7 @@ uniform sampler3D uVelocityTexture;
 
 void reset()
 {
-    vPosition = vec3(0,0,0);
+    vPosition = vec3(1000,0,0);
     vActive = 0;
     vType = 0;
     vAge = 0;
@@ -34,7 +34,7 @@ void main()
             reset();
         } else {
             vec3 texCoord = vec3((aPosition.x), (aPosition.y), (aPosition.z));
-            texCoord.z = mod(texCoord.z+uElapsedTime*0.075, 1.0);
+            texCoord.z = mod(texCoord.z+uElapsedTime*0.05, 1.0);
             vec3 velocity = ((vec3(texture(uVelocityTexture, texCoord).xyz) * 2 - 1.0) * uDeltaTime);
             velocity.y *= -1.0;
             vPosition = aPosition + (velocity*aWeight/2);

@@ -41,7 +41,7 @@ void main()
         uint seed = uint(uDeltaTime * 1000.0) + uint(gl_PrimitiveIDIn);
         for (int i = 0; i < uEmitCount; i++){
             vPosition = gPosition[0];
-            //vPosition.x += randhashf(seed++, 0.005);
+            vPosition.x += randhashf(seed++, 0.005);
             //vPosition.y += randhashf(seed++, 0.005);
             vAge = 0;
             vType = gType[0];
