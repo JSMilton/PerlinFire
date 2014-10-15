@@ -12,6 +12,6 @@ BillboardShader::BillboardShader() : BaseShader("billboard", "billboard", "billb
     mModelViewProjectionHandle = getUniformLocation("u_MVP");
     mRightHandle = getUniformLocation("u_Right");
     mUpHandle = getUniformLocation("u_Up");
-    mBillboardSizeHandle = getUniformLocation("u_BillboardSize");
+    mBillboardSizeHandle = getUniformLocation("uBillboardSize");
 }
 

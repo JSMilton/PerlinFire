@@ -5,10 +5,11 @@ layout(max_vertices = 120) out;
 
 in vec3 gPosition[];
 in float gEmit[];
+in float gType[];
 
 out vec3 vPosition;
 out float vAge;
-out float vSize;
+out float vType;
 out float vWeight;
 out float vLifespan;
 out float vActive;
@@ -17,9 +18,7 @@ uniform float uEmitCount;
 uniform float uElapsedTime;
 uniform float uDeltaTime;
 
-const float lifespan = 3.0;
-const float billboardSize = 0.0075;
-
+const float lifespan = 1.5;
 const float UINT_MAX = 4294967295.0;
 
 uint randhash(uint seed)
@@ -45,7 +44,7 @@ void main()
             //vPosition.x += randhashf(seed++, 0.005);
             //vPosition.y += randhashf(seed++, 0.005);
             vAge = 0;
-            vSize = billboardSize;
+            vType = gType[0];
             vWeight = 0.15 + randhashf(seed++, 0.5);
             vLifespan = lifespan;
             vActive = 1;

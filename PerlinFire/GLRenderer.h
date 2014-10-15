@@ -18,9 +18,9 @@ extern "C"{
 
 #define BUFFER_COUNT 2
 #define MAX_PARTICLES 10000
-#define BILLBOARD_SIZE 0.0075f
+#define BILLBOARD_SIZE 0.005f
 #define MAX_BURST_RATE 300//ms
-#define EMIT_COUNT 20
+#define EMIT_COUNT 15
 #define MAX_EMITTERS 30
 #define BASE_WIDTH 0.05
 
@@ -35,7 +35,7 @@ class GLRenderer {
     {
         glm::vec3 position;
         GLfloat age;
-        GLfloat size;
+        GLfloat type;
         GLfloat weight;
         GLfloat lifespan;
         GLfloat active;
@@ -45,6 +45,7 @@ class GLRenderer {
     {
         glm::vec3 position;
         GLfloat emit;
+        GLfloat type;
         GLfloat burstRate;
         GLfloat age;
     };

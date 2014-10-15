@@ -32,8 +32,8 @@ void GLRenderer::initOpenGL() {
     mTestShader = new TestShader;
     
     glEnable(GL_BLEND);
-    glBlendFunc(GL_ONE, GL_ONE);
-    //glEnable(GL_DEPTH_TEST);
+    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+   // glEnable(GL_DEPTH_TEST);
     
     render(0.0);
 }
@@ -48,7 +48,7 @@ void GLRenderer::initFeedbackShader() {
     {
         "vPosition",
         "vAge",
-        "vSize",
+        "vType",
         "vWeight",
         "vLifespan",
         "vActive",
@@ -65,7 +65,7 @@ void GLRenderer::initEmitterShader() {
     {
         "vPosition",
         "vAge",
-        "vSize",
+        "vType",
         "vWeight",
         "vLifespan",
         "vActive",
@@ -82,7 +82,7 @@ void GLRenderer::createParticleBuffers() {
         particles[i].position.y = 0;
         particles[i].position.z = 0;
         particles[i].age = 0;
-        particles[i].size = 0;
+        particles[i].type = 0;
         particles[i].weight = 0;
         particles[i].lifespan = 0;
         particles[i].active = 0;
@@ -114,13 +114,12 @@ void GLRenderer::createParticleBuffers() {
 void GLRenderer::createEmitters() {
     for (int i = 0; i < MAX_EMITTERS; i++){
         float x = BASE_WIDTH*((float)i/(MAX_EMITTERS)) - (BASE_WIDTH/2);
-//        if (i <= MAX_EMITTERS/4){
-//            x = BASE_WIDTH*((float)i/(MAX_EMITTERS/4)) - (BASE_WIDTH/2);
-//            
-//        } else {
-//            x = (BASE_WIDTH/2)*((float)(i-(MAX_EMITTERS/4))/(MAX_EMITTERS/1.5)) - (BASE_WIDTH/4);
-//            printf("%f\n", x);
-//        }
+        if (i <= MAX_EMITTERS*0.4 || i >= MAX_EMITTERS*0.6){
+            emitters[i].type = 1;
+        } else {
+            //x *= 0.25;
+            emitters[i].type = 2;
+        }
         emitters[i].position = glm::vec3(x,0,0);
         emitters[i].emit = 0;
         emitters[i].burstRate = ((rand() % MAX_BURST_RATE) / 1000.0) + (MAX_BURST_RATE / 4000.0);
@@ -136,6 +135,8 @@ void GLRenderer::createEmitters() {
     glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Emitter), 0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*3));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*4));
     
     glBindVertexArray(0);
 }
@@ -158,6 +159,8 @@ void GLRenderer::updateEmitters(float dt) {
     glVertexAttribPointer(0, 3, GL_FLOAT, false, sizeof(Emitter), 0);
     glEnableVertexAttribArray(1);
     glVertexAttribPointer(1, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*3));
+    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(2, 1, GL_FLOAT, false, sizeof(Emitter), (void*)(sizeof(GLfloat)*4));
 }
 
 void GLRenderer::render(float dt) {
